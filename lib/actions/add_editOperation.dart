@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
  import '../db/database.dart';
 
  import '../model/operation_model.dart';
-import 'package:drahmi/actions/sharedprefrencess.dart';
-import 'package:intl/intl.dart';
+ import 'package:intl/intl.dart';
 
 class AddEditOperation extends StatefulWidget {
   final bool edit;
   final Operation operation;
+
 
   AddEditOperation(this.edit, {this.operation})
   : assert(edit == true || operation ==null);
@@ -18,6 +19,10 @@ class AddEditOperation extends StatefulWidget {
 }
 
 class _AddEditOperationState extends State<AddEditOperation> {
+  SharedPreferences preferences ;
+  static  String data = "0.0";
+  String nameKey = "sum";
+
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController prixEditingController = TextEditingController();
 
@@ -124,8 +129,7 @@ class _AddEditOperationState extends State<AddEditOperation> {
                         );
                       }else if (widget.edit == true) {
 
-                        SharedPreferenceDemoState.saveOperationData(prixEditingController.text);
-                         ClientDatabaseProvider.db.updateOperation(new Operation(
+                          ClientDatabaseProvider.db.updateOperation(new Operation(
                               name: _selectedType,
                               prix: prixEditingController.text,
                              date:(DateTime.now()).toString() ,
@@ -200,5 +204,6 @@ class _AddEditOperationState extends State<AddEditOperation> {
         ),
       );
     }
+
 
 }

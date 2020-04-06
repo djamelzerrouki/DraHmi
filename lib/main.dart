@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      
+
     });
   }
 
@@ -75,13 +75,25 @@ class _MyHomePageState extends State<MyHomePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            UserAccountsDrawerHeader(
-               accountName: Text("Djamel zerrouki"),
-              accountEmail: Text("Djameljimmizerrouki@gmail.com"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.cyan,
-                child: Icon(Icons.add_shopping_cart ,color:Colors.white),
-              ),
+            Center(
+              child: UserAccountsDrawerHeader(
+                 decoration: BoxDecoration(color: Colors.cyan ),
+                 accountName: Text("DraHmi",style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold,color: Colors.black)),
+                accountEmail: Text("Developed by djamel zerrouki"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                 child: Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Column(
+                      children: <Widget>[
+                        Icon(Icons.add_shopping_cart ,color:Colors.cyan),
+                        Text("DraHmi",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold,color: Colors.black)),
+                      ],
+                    ),
+                 ),
+                  ),
+                ),
+
             ),
             ListTile(
               leading: Icon(Icons.home), title: Text("Home"),
@@ -89,6 +101,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
               },
             ),
+
+            ListTile(
+              leading: Icon(Icons.add), title: Text("add SUM"),
+              onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
+    },
+            ),
+
             ListTile(
               leading: Icon(Icons.settings), title: Text("Settings"),
               onTap: () {
@@ -105,6 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
+
+
+//
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.

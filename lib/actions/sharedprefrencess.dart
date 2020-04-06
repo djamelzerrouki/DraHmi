@@ -16,7 +16,7 @@ class SharedPreferenceDemoState extends State<SharedPreferenceDemo> {
   static  double sum = 0.0;
 
   static  String data = "0.0";
-  String nameKey = "_key_name";
+  String nameKey = "sum";
   TextEditingController controller = TextEditingController();
 
      SharedPreferences preferences;
@@ -42,12 +42,8 @@ return double.parse(data);
   }
 
   Future<bool> saveData() async {
-      preferences = await SharedPreferences.getInstance();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(nameKey, controller.text);
-  }
-   static Future<bool> saveOperationData(String data) async {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString("_key_name", data);
   }
 
   Future<String> loadData() async {
