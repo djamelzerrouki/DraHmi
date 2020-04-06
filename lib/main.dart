@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'actions/add_editOperation.dart';
+import 'actions/sharedprefrencess.dart';
+import 'db/database.dart';
+import 'model/operation_model.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,16 +51,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+   final Map<String, IconData> _data = Map.fromIterables(
+      [ 'Transportation', 'Food', 'Health', 'Other'],
+      [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.devices_other]);
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      
     });
   }
 
@@ -72,14 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Abhishek Mishra"),
-              accountEmail: Text("abhishekm977@gmail.com"),
+               accountName: Text("Djamel zerrouki"),
+              accountEmail: Text("Djameljimmizerrouki@gmail.com"),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.orange,
-                child: Text(
-                  "A",
-                  style: TextStyle(fontSize: 40.0),
-                ),
+                backgroundColor: Colors.cyan,
+                child: Icon(Icons.add_shopping_cart ,color:Colors.white),
               ),
             ),
             ListTile(
@@ -109,41 +110,91 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+      body:  Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+          child: Center(
+          child: Column(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+          RaisedButton(
+
+
+          onPressed: () {
+    Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
+    },
+      child: Text(
+        SharedPreferenceDemoState.data+' DA',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+    ),
+
+    Expanded(
+    child: new FutureBuilder<List<Operation>>(
+
+    //we call the method, which is in the folder db file database.dart
+    future: ClientDatabaseProvider.db.getAllOperations(),
+    builder: (BuildContext context, AsyncSnapshot<List<Operation>> snapshot) {
+    if (snapshot.hasData) {
+    return ListView.builder(
+    physics: BouncingScrollPhysics(),
+    //Count all records
+    itemCount: snapshot.data.length,
+    //all the records that are in the Operation table are passed to an item Operation item = snapshot.data [index];
+    itemBuilder: (BuildContext context, int index){
+    Operation item = snapshot.data[index];
+    //delete one register for id
+    return Dismissible(
+    key: UniqueKey(),
+    background: Container(color: Colors.red),
+    onDismissed: (diretion) {
+    ClientDatabaseProvider.db.deleteOperationWithId(item.id);
+    },
+    //Now we paint the list with all the records, which will have a number, name, phone
+
+    child: ListTile(
+    title: Text(item.name),
+    subtitle: Text(item.date.toString()),
+    leading: CircleAvatar(child:Icon(_data[item.name])),
+
+    trailing: Text(item.prix.toString()+' DA', style: TextStyle( color: Colors.green, fontWeight: FontWeight.bold,fontSize: 20),),
+    onLongPress: () {
+    Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => AddEditOperation(
+    true, //Here is the record that we want to edit
+    operation: item,
+    )
+    )
+    );},
+    //If we press one of the cards, it takes us to the page to edit, with the data onTap:
+    //This method is in the file add_editOperation.dart
+    onTap: () {
+    Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => AddEditOperation(
+    true, //Here is the record that we want to edit
+    operation: item,
+    )
+    )
     );
+    },
+    ),
+    );
+    },
+    );
+    }else {
+    return Center(child: CircularProgressIndicator());
+    }
+    },
+    ),
+
+    ),
+    FloatingActionButton(
+
+    child: Icon(Icons.add),
+
+    onPressed: () {
+    Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => AddEditOperation(false)));
+    },
+    ),
+   ],),),),),);
   }
 }
