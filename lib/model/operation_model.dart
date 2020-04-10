@@ -4,7 +4,7 @@ class Operation{
   int id;
   String name;
   //IconData icon;
-  String prix;
+  double prix;
   String date;
 
   Operation ({this.id, this.name,  this.prix,this.date});

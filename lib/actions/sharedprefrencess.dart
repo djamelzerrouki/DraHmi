@@ -1,6 +1,6 @@
+ import 'package:drahmi/actions/sharedPrefUtils.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/services.dart';
+ import 'package:flutter/services.dart';
 
 class SharedPreferenceDemo extends StatefulWidget {
   SharedPreferenceDemo() : super();
@@ -13,51 +13,16 @@ class SharedPreferenceDemo extends StatefulWidget {
 
 class SharedPreferenceDemoState extends State<SharedPreferenceDemo> {
   //
-  static  double sum = 0.0;
+    static  String data = "0.0";
+   static TextEditingController controller = TextEditingController();
 
-  static  String data = "0.0";
-  String nameKey = "sum";
-  TextEditingController controller = TextEditingController();
-
-     SharedPreferences preferences;
-  static  double getDoubledata(String data){
-if(double.parse(data).isNaN){
-  return 0;
-}
-return double.parse(data);
-}
-  @override
-  void initState() {
-    super.initState();
-    const MethodChannel('plugins.flutter.io/shared_preferences')
-        .setMockMethodCallHandler(
-          (MethodCall methodcall) async {
-        if (methodcall.method == 'getAll') {
-          return {"flutter." + nameKey: "[ No Name Saved ]"};
-        }
-        return null;
-      },
-    );
-    setData();
-  }
-
-  Future<bool> saveData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(nameKey, controller.text);
-  }
-
-  Future<String> loadData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString(nameKey);
-  }
-
-  setData() {
-    loadData().then((value) {
-      setState(() {
-        data = getDoubledata(value).toString();
-      });
-    });
-  }
+    static addingToSum(String prix){
+      data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+      double sum= double.parse(data)+double.parse(prix);
+      data=sum.toString();
+      PreferenceUtils.setString(PreferenceUtils.KEY_SUM , data);
+      data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -96,20 +61,16 @@ return double.parse(data);
             OutlineButton(
               child: Text("SAVE SUM"),
               onPressed: () {
-                saveData();
-                setData();
+                addingToSum(controller.text);
+
               },
             ),
             Text(
-              data,
+              PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA',
               style: TextStyle(fontSize: 20),
             ),
-            OutlineButton(
-              child: Text("LOAD SUM"),
-              onPressed: () {
-                setData();
-              },
-            ),
+
+
           ],
         ),
       ),

@@ -27,7 +27,7 @@ class ClientDatabaseProvider{
         await db.execute("CREATE TABLE Operation ("
             "id integer primary key,"
             "name TEXT,"
-            "prix TEXT,"
+            "prix REAL,"
             "date TEXT"
             ")");
       },);
@@ -90,4 +90,18 @@ class ClientDatabaseProvider{
     return response;
   }
 
+
+
+  //muestra un solo Operation por el id la base de datos
+  Future<Operation> getOperationsWithDate(String date) async {
+    final db = await database;
+    var response = await db.query("Operation", where: "date = ?", whereArgs: [date]);
+    return response.isNotEmpty ? Operation.fromMap(response.first): null;
+  }
+  //muestra un solo Operation por el id la base de datos
+  Future<Operation> groupOperationsByName(String name) async {
+    final db = await database;
+     var response = await db.query("Operation" , groupBy: "name");
+    return response.isNotEmpty ? Operation.fromMap(response.first): null;
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:drahmi/actions/sharedPrefUtils.dart';
+import 'package:drahmi/actions/sharedprefrencess.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  import '../db/database.dart';
@@ -128,19 +130,18 @@ class _AddEditOperationState extends State<AddEditOperation> {
                           SnackBar(content: Text('Processing Data'))
                         );
                       }else if (widget.edit == true) {
-
-                          ClientDatabaseProvider.db.updateOperation(new Operation(
+                           ClientDatabaseProvider.db.updateOperation(new Operation(
                               name: _selectedType,
-                              prix: prixEditingController.text,
+                              prix: double.parse(prixEditingController.text),
                              date:(DateTime.now()).toString() ,
                             id: widget.operation.id ));
                         } else {
                         await ClientDatabaseProvider.db.addOperationToDatabase(new Operation(
                           name:_selectedType,
-                           prix:  prixEditingController.text,
+                           prix:  double.parse(prixEditingController.text),
                           date: new DateFormat("dd-MM-yyyy hh:mm:ss").format(DateTime.now()).toString()
                          ));
-
+                        substractionofSum(prixEditingController.text);
                       }
                       Navigator.pop(context);
                     },
@@ -205,5 +206,11 @@ class _AddEditOperationState extends State<AddEditOperation> {
       );
     }
 
-
+static substractionofSum(String prix){
+  data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+double sum= double.parse(data)-double.parse(prix);
+data=sum.toString();
+  PreferenceUtils.setString(PreferenceUtils.KEY_SUM , data);
+  data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+}
 }

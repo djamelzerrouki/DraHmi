@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'actions/add_editOperation.dart';
+ import 'actions/sharedPrefUtils.dart';
 import 'actions/sharedprefrencess.dart';
 import 'db/database.dart';
 import 'model/operation_model.dart';
@@ -35,14 +37,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -55,11 +49,32 @@ class _MyHomePageState extends State<MyHomePage> {
       [ 'Transportation', 'Food', 'Health', 'Other'],
       [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.devices_other]);
 
-  void _incrementCounter() {
-    setState(() {
+   static  String data = "0.0";
+   String nameKey = "sum";
 
-    });
-  }
+   Future<bool> saveData(String data) async {
+     SharedPreferences preferences = await SharedPreferences.getInstance();
+     return await preferences.setString("sum", data);
+   }
+
+   static   readPrefStr(String key) async {
+     final SharedPreferences pref = await SharedPreferences.getInstance();
+     return pref.getString(key);
+   }
+
+   setData() {
+     readPrefStr("sum").then((value) {
+       setState(() {
+         data = value;
+       });
+     });
+   }
+
+   @override
+   void initState() {
+     super.initState();
+     PreferenceUtils.init();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
     MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
     },
       child: Text(
-        SharedPreferenceDemoState.data+' DA',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+        PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA' ,style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
     ),
 
     Expanded(
