@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:drahmi/model/sum_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -54,6 +55,19 @@ class ClientDatabaseProvider{
     var response = await db.query("Operation", where: "id = ?", whereArgs: [id]);
     return response.isNotEmpty ? Operation.fromMap(response.first): null;
   }
+
+  Future<List> queryGroupByAll() async {
+    Database db = await database;
+    List<Map> names = await db
+        .rawQuery( 'select Operation.name, SUM(Operation.prix) as sum from Operation   group by Operation.name');
+  if (names.length > 0) { return names; } return null; }
+
+  Future<Sum> getOperationGroupBy() async {
+
+    final db = await database;
+    var response = await db.query("Operation", groupBy: "name" ,columns: ['name','SUM(prix) as sum'] );
+    return response.isNotEmpty ? Sum.fromMap(response.first): null;
+    }
   //Insert
   addOperationToDatabase(Operation operation) async {
     final db = await database;

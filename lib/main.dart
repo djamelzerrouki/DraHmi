@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'actions/add_editOperation.dart';
  import 'actions/sharedPrefUtils.dart';
 import 'actions/sharedprefrencess.dart';
+import 'chart.dart';
 import 'db/database.dart';
 import 'model/operation_model.dart';
+import 'page1.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,7 +38,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-
   final String title;
 
   @override
@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
    final Map<String, IconData> _data = Map.fromIterables(
       [ 'Transportation', 'Food', 'Health', 'Other'],
       [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.devices_other]);
+   static List<Operation> operations=List<Operation>();
 
    static  String data = "0.0";
    String nameKey = "sum";
@@ -124,7 +125,20 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
     },
             ),
-
+            ListTile(
+              leading: Icon(Icons.monetization_on), title: Text("Home Page"),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.show_chart), title: Text("Chart Page"),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ChartPage()));
+              },
+            ),
             ListTile(
               leading: Icon(Icons.settings), title: Text("Settings"),
               onTap: () {
@@ -150,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body:  Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(0.0),
           child: Container(
           child: Center(
           child: Column(
@@ -176,10 +190,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return ListView.builder(
     physics: BouncingScrollPhysics(),
     //Count all records
+
     itemCount: snapshot.data.length,
     //all the records that are in the Operation table are passed to an item Operation item = snapshot.data [index];
     itemBuilder: (BuildContext context, int index){
     Operation item = snapshot.data[index];
+    operations.add(item);
     //delete one register for id
     return Dismissible(
     key: UniqueKey(),
@@ -189,31 +205,39 @@ class _MyHomePageState extends State<MyHomePage> {
     },
     //Now we paint the list with all the records, which will have a number, name, phone
 
-    child: ListTile(
-    title: Text(item.name),
-    subtitle: Text(item.date.toString()),
-    leading: CircleAvatar(child:Icon(_data[item.name])),
+    child:  Card(
+      margin: EdgeInsets.all(4.0),
+      elevation: 1.0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0))),
 
-    trailing: Text(item.prix.toString()+' DA', style: TextStyle( color: Colors.green, fontWeight: FontWeight.bold,fontSize: 20),),
-    onLongPress: () {
-    Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => AddEditOperation(
-    true, //Here is the record that we want to edit
-    operation: item,
-    )
-    )
-    );},
-    //If we press one of the cards, it takes us to the page to edit, with the data onTap:
-    //This method is in the file add_editOperation.dart
-    onTap: () {
-    Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => AddEditOperation(
-    true, //Here is the record that we want to edit
-    operation: item,
-    )
-    )
-    );
-    },
+
+      child: ListTile(
+      title: Text(item.name),
+      subtitle: Text(item.date.toString()),
+      leading: CircleAvatar(child:Icon(_data[item.name])),
+
+      trailing: Text(item.prix.toString()+' DA', style: TextStyle( color: Colors.green, fontWeight: FontWeight.bold,fontSize: 20),),
+      onLongPress: () {
+      Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => AddEditOperation(
+      true, //Here is the record that we want to edit
+      operation: item,
+      )
+      )
+      );},
+      //If we press one of the cards, it takes us to the page to edit, with the data onTap:
+      //This method is in the file add_editOperation.dart
+      onTap: () {
+      Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => AddEditOperation(
+      true, //Here is the record that we want to edit
+      operation: item,
+      )
+      )
+      );
+      },
+      ),
     ),
     );
     },

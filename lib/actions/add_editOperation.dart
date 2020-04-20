@@ -133,13 +133,14 @@ class _AddEditOperationState extends State<AddEditOperation> {
                            ClientDatabaseProvider.db.updateOperation(new Operation(
                               name: _selectedType,
                               prix: double.parse(prixEditingController.text),
-                             date:(DateTime.now()).toString() ,
+                             date:widget.operation.date ,
                             id: widget.operation.id ));
                         } else {
+                     double prix=   double.parse(prixEditingController.text.trim());
                         await ClientDatabaseProvider.db.addOperationToDatabase(new Operation(
                           name:_selectedType,
-                           prix:  double.parse(prixEditingController.text),
-                          date: new DateFormat("dd-MM-yyyy hh:mm:ss").format(DateTime.now()).toString()
+                           prix:prix,
+                          date: new DateFormat("dd-MM-yyyy").format(DateTime.now()).toString()
                          ));
                         substractionofSum(prixEditingController.text);
                       }

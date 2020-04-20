@@ -13,7 +13,7 @@ static const  String KEY_SUM="KEY_SUM";
   }
 
   static String getString(String key, [String defValue]) {
-    return _prefsInstance.getString(key) ?? defValue ?? "0.0";
+     return _prefsInstance.getString(key) ?? defValue ?? '0.0' ;
   }
 
   static Future<bool> setString(String key, String value) async {
