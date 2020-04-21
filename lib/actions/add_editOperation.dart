@@ -32,8 +32,8 @@ class _AddEditOperationState extends State<AddEditOperation> {
   IconData _selectedIcon;
 
   final Map<String, IconData> _data = Map.fromIterables(
-      [ 'Transportation', 'Food', 'Health', 'Other'],
-      [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.devices_other]);
+      [ 'Transportation', 'Food', 'Health', 'Clothes','Other'],
+      [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.shopping_cart,Icons.devices_other]);
 
 
 

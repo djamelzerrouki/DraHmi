@@ -5,6 +5,7 @@ import 'actions/add_editOperation.dart';
 import 'actions/sharedprefrencess.dart';
 import 'chart.dart';
 import 'db/database.dart';
+import 'main_drawer.dart';
 import 'model/operation_model.dart';
 import 'page1.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Home Page'),
     );
   }
 }
@@ -45,9 +46,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   final Map<String, IconData> _data = Map.fromIterables(
-      [ 'Transportation', 'Food', 'Health', 'Other'],
-      [Icons.directions_car, Icons.fastfood, Icons.healing,Icons.devices_other]);
+  //CircleAvatar(child:Icon(_data[item.name]),foregroundColor: Colors.cyan,)
+   final Map<String, CircleAvatar> _data = Map.fromIterables(
+      [ 'Transportation', 'Food', 'Health', 'Clothes','Other'],
+      [
+        CircleAvatar(child:Icon(Icons.directions_car),backgroundColor:Colors.deepPurple,),
+        CircleAvatar(child:Icon( Icons.local_dining),backgroundColor: Colors.pinkAccent,),
+        CircleAvatar(child:Icon(Icons.healing),backgroundColor: Color(0xff109618),),
+        CircleAvatar(child:Icon(Icons.shopping_cart),backgroundColor: Colors.blueAccent,),
+        CircleAvatar(child:Icon(Icons.devices_other),backgroundColor: Colors.orange,),
+
+
+      ]
+   );
+
    static List<Operation> operations=List<Operation>();
 
    static  String data = "0.0";
@@ -86,98 +98,35 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Center(
-              child: UserAccountsDrawerHeader(
-                 decoration: BoxDecoration(color: Colors.cyan ),
-                 accountName: Text("DraHmi",style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold,color: Colors.black)),
-                accountEmail: Text("Developed by djamel zerrouki"),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                 child: Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Column(
-                      children: <Widget>[
-                        Icon(Icons.add_shopping_cart ,color:Colors.cyan),
-                        Text("DraHmi",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold,color: Colors.black)),
-                      ],
-                    ),
-                 ),
-                  ),
-                ),
-
-            ),
-            ListTile(
-              leading: Icon(Icons.home), title: Text("Home"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.add), title: Text("add SUM"),
-              onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
-    },
-            ),
-            ListTile(
-              leading: Icon(Icons.monetization_on), title: Text("Home Page"),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomePage()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.show_chart), title: Text("Chart Page"),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ChartPage()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings), title: Text("Settings"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.contacts), title: Text("Contact Us"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-
-
-
+      // Main Drawer
+      drawer: MainDrawer(),
 //
+
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+    //  backgroundColor: Colors.cyan,
       body:  Padding(
-          padding: EdgeInsets.all(0.0),
+          padding: EdgeInsets.all(2.0),
           child: Container(
           child: Center(
           child: Column(
           children: <Widget>[
-          RaisedButton(
 
+            RaisedButton(
+              color: Colors.blue,
 
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50.0))),
           onPressed: () {
-    Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
+            showCustomDialogWithImage(context);
+   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SharedPreferenceDemo()));
     },
       child: Text(
-        PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA' ,style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+        PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA' ,
+        style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold,color: Colors.white),),
     ),
 
     Expanded(
@@ -206,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //Now we paint the list with all the records, which will have a number, name, phone
 
     child:  Card(
-      margin: EdgeInsets.all(4.0),
+      margin: EdgeInsets.all(3.0),
       elevation: 1.0,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(50.0))),
@@ -215,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ListTile(
       title: Text(item.name),
       subtitle: Text(item.date.toString()),
-      leading: CircleAvatar(child:Icon(_data[item.name])),
+      leading: _data[item.name],
 
       trailing: Text(item.prix.toString()+' DA', style: TextStyle( color: Colors.green, fontWeight: FontWeight.bold,fontSize: 20),),
       onLongPress: () {
@@ -260,4 +209,106 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
    ],),),),),);
   }
+
+
+   void showCustomDialogWithImage(BuildContext context) {
+       TextEditingController controller = TextEditingController();
+
+     Dialog dialogWithImage = Dialog(
+       child: Container(
+         height: 350.0,
+         width: 400.0,
+         child: Column(
+           children: <Widget>[
+             Container(
+               padding: EdgeInsets.all(12),
+               alignment: Alignment.center,
+               decoration: BoxDecoration(color: Colors.cyan),
+               child: Text(
+                 "Add sum",
+                 style: TextStyle(
+                     color: Colors.white,
+                     fontSize: 18,
+                     fontWeight: FontWeight.w600),
+               ),
+             ),
+             Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: Container(
+                 height: 150,
+                 width: 150,
+                 child: Image.asset(
+                   'assets/images/da1.jpg',
+                   fit: BoxFit.scaleDown,
+                 ),
+               ),
+             ),
+             Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: TextFormField(
+                 controller: controller,
+                 validator: (value){
+                   if (value.isEmpty) {
+                     return 'Please enter some text';
+                   }
+                 },
+                 keyboardType: TextInputType.number,
+                 textCapitalization: TextCapitalization.words,
+                 decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.money_off),
+                     hintText: "Enter SUM",
+                     border:
+                     OutlineInputBorder(borderRadius: BorderRadius.circular(10))
+
+                 ),
+               ),
+             ),
+
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 RaisedButton(
+                   color: Colors.blue,
+                   onPressed: () {
+                     setState(() {
+                       addingToSum(controller.text);
+
+                     });
+                     Navigator.of(context).pop();
+                   },
+                   child: Text(
+                     'Save',
+                     style: TextStyle(fontSize: 18.0, color: Colors.white),
+                   ),
+                 ),
+                 SizedBox(
+                   width: 20,
+                 ),
+                 RaisedButton(
+                   color: Colors.red,
+                   onPressed: () {
+                     Navigator.of(context).pop();
+                   },
+                   child: Text(
+                     'Cancel!',
+                     style: TextStyle(fontSize: 18.0, color: Colors.white),
+                   ),
+                 )
+               ],
+             ),
+           ],
+         ),
+       ),
+     );
+     showDialog(
+         context: context, builder: (BuildContext context) => dialogWithImage);
+   } static addingToSum(String prix){
+     data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+     double sum= double.parse(data)+double.parse(prix);
+     data=sum.toString();
+     PreferenceUtils.setString(PreferenceUtils.KEY_SUM , data);
+     data = PreferenceUtils.getString(PreferenceUtils.KEY_SUM);
+   }
+
 }

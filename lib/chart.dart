@@ -5,6 +5,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'db/database.dart';
+import 'main_drawer.dart';
 import 'model/operation_model.dart';
 import 'model/sum_model.dart';
 
@@ -41,7 +42,7 @@ class _ChartPageState extends State<ChartPage> {
       listSum.forEach((f){data0.add(new Task(f['name'].toString() , f['sum']  , Color.fromARGB(255, random.nextInt(255), random.nextInt(255), random.nextInt(255)))) ;});
 
     var data1 = [
-      new Pollution(1980, 'USA', 30),
+      new Pollution(1980, 'USA', 300),
       new Pollution(1980, 'Asia', 40),
       new Pollution(1980, 'Europe', 10),
     ];
@@ -194,6 +195,8 @@ class _ChartPageState extends State<ChartPage> {
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
+          // Main Drawer
+          drawer: MainDrawer(),
           appBar: AppBar(
             backgroundColor: Color(0xff1976d2),
             //backgroundColor: Color(0xff308e1c),

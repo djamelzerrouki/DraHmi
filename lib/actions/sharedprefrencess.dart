@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class SharedPreferenceDemo extends StatefulWidget {
   SharedPreferenceDemo() : super();
 
-  final String title = "Shared Preference Demo";
+  final String title = "Add sum";
 
   @override
   SharedPreferenceDemoState createState() => SharedPreferenceDemoState();
@@ -30,17 +30,17 @@ class SharedPreferenceDemoState extends State<SharedPreferenceDemo> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
+      body: Container( color: Colors.white,
         alignment: Alignment.center,
         padding: EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-        Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-        ),
-        child: TextFormField(
+
+        CircleAvatar(child:Image.asset('assets/images/da1.jpg',),radius: 80,) ,
+             // Icon(Icons.add_shopping_cart,color:Colors.green,size: 250),
+
+       TextFormField(
           controller: controller,
           validator: (value){
             if (value.isEmpty) {
@@ -54,7 +54,7 @@ class SharedPreferenceDemoState extends State<SharedPreferenceDemo> {
               hintText: "Enter SUM",
               border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(10))
-          ),
+
         ),
       ),
 
@@ -65,10 +65,10 @@ class SharedPreferenceDemoState extends State<SharedPreferenceDemo> {
 
               },
             ),
-            Text(
-              PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA',
-              style: TextStyle(fontSize: 20),
-            ),
+//            Text(
+//              PreferenceUtils.getString(PreferenceUtils.KEY_SUM)+' DA',
+//              style: TextStyle(fontSize: 20),
+//            ),
 
 
           ],

@@ -4,6 +4,8 @@ import './actions/myflexiableappbar.dart';
 import './actions/myappbar.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 
+import 'main_drawer.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,6 +26,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Main Drawer
+        drawer: MainDrawer(),
+
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
@@ -38,25 +43,25 @@ class _HomePageState extends State<HomePage> {
               delegate: SliverChildListDelegate(
                 <Widget>[
 
-    myCardDetails("images/bitcoin.png", "Bitcoin",data1, "4702", "3.0","\u2191", 0xff07862b),
+    myCardDetails("assets/images/bitcoin.png", "Bitcoin",data1, "4702", "3.0","\u2191", 0xff07862b),
 
                   myCardDetails(
-                      "images/bitshares.png", "Bitshares", data2, "3802", "4.0", "\u2193", 0xffff0000),
+                      "assets/images/bitshares.png", "Bitshares", data2, "3802", "4.0", "\u2193", 0xffff0000),
                   myCardDetails(
-                      "images/ethereum.png", "Ethereum", data3, "7702", "5.0", "\u2191", 0xff07862b),
+                      "assets/images/ethereum.png", "Ethereum", data3, "7702", "5.0", "\u2191", 0xff07862b),
                   myCardDetails(
-                      "images/counterparty.png", "Counterpaty", data7, "4702", "3.0", "\u2193", 0xffff0000),
+                      "assets/images/counterparty.png", "Counterpaty", data7, "4702", "3.0", "\u2193", 0xffff0000),
 
                   myCardDetails(
-                      "images/lykke.png", "Lykke", data5, "8600", "2.0", "\u2191", 0xff07862b),
+                      "assets/images/lykke.png", "Lykke", data5, "8600", "2.0", "\u2191", 0xff07862b),
                   myCardDetails(
-                      "images/peercoin.png", "Peercoin", data6, "4702", "2.5", "\u2191", 0xff07862b),
+                      "assets/images/peercoin.png", "Peercoin", data6, "4702", "2.5", "\u2191", 0xff07862b),
                   myCardDetails(
-                      "images/zcash.png", "Zcash", data4, "2345", "2.0", "\u2193", 0xffff0000),
+                      "assets/images/zcash.png", "Zcash", data4, "2345", "2.0", "\u2193", 0xffff0000),
                   myCardDetails(
-                      "images/singular.png", "Singular", data8, "3800", "2.5", "\u2191", 0xffff0000),
+                      "assets/images/singular.png", "Singular", data8, "3800", "2.5", "\u2191", 0xffff0000),
                   myCardDetails(
-                      "images/litecoin.png", "Litecoin", data9, "2000", "3.0", "\u2193", 0xffff0000),
+                      "assets/images/litecoin.png", "Litecoin", data9, "2000", "3.0", "\u2193", 0xffff0000),
 
                 ],
               ),
