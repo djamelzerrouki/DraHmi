@@ -1,8 +1,4 @@
-### Features
-
-A new Flutter application.
-
-## Getting Started
+ ## Getting Started
 
 This project is a starting point for a Flutter application.
 
@@ -15,7 +11,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-# DraHmi :tw-1f4b6: :tw-1f4b4: :tw-1f4b7: :tw-1f4b8: :tw-1f4b0:&hearts;
+# DraHmi :money_with_wings: :money_with_wings::money_with_wings: &hearts; 🚀
 ![](https://github.com/djamelzerrouki/DraHmi/blob/master/assets/captur/logo_drahmi.PNG)
 
 ![](https://img.shields.io/badge/Datr-100-green) ![](https://img.shields.io/badge/flutter-100-brightgreen) ![](https://img.shields.io/badge/sdk-flutter%20-yellowgreen) ![](https://img.shields.io/badge/cupertino__icons-%5E0.1.2-brightgreen) ![](https://img.shields.io/badge/sqflite-%5E1.1.5-brightgreen) ![](https://img.shields.io/badge/path__provider-%5E0.5.0%2B1-brightgreen) ![](https://img.shields.io/badge/charts__flutter-%5E0.6.0-brightgreen) ![](https://img.shields.io/badge/shared__preferences-%5E0.5.6%2B3-brightgreen) ![](https://img.shields.io/badge/flutter__sparkline-%5E0.1.0-brightgreen)
@@ -65,19 +61,22 @@ samples, guidance on mobile development, and a full API reference.
   </table>
   </div>
 
+
+
  ## Features
-* [x] Simple to use 
-
-
+* [x] Is easy to use
+* [x] Calculator is all amount
+* [x] Illustration of purchases by charts 
+* [x] Helps organize purchases
 ## Requirements
 * Dart 
 * Flutter IDE
 
-## Libraries used
-* charts_flutter: ^0.6.0 (Charts)
-* cupertino_icons: ^0.1.2 (Icons)
-* sqflite: ^1.1.5 (data base)
-* shared_preferences: ^0.5.6+3 (Data storage)
+## Dependencies  used
+* charts_flutter: v0.6.0 (Charts)
+* cupertino_icons: v0.1.2 (Icons)
+* sqflite: v1.1.5 (data base)
+* shared_preferences: v0.5.6+3 (Data storage)
 
 ## Installation
 1. Download the repository files (project) from the download section or clone this project by typing in the bash the following command:
