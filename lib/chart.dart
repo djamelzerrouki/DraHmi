@@ -64,8 +64,7 @@ class _ChartPageState extends State<ChartPage> {
       new Sales(3, 60),
       new Sales(4, 61),
       new Sales(5, 70),
-      new Sales(6, 70),
-      new Sales(7, 70),
+
     ];
     var linesalesdata1 = [
       new Sales(0, 35),
@@ -227,7 +226,7 @@ class _ChartPageState extends State<ChartPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'Financial amounts by month and items',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                         Expanded(
                           child: charts.BarChart(
                             _seriesData,
@@ -288,7 +287,7 @@ class _ChartPageState extends State<ChartPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                            'Sales for the first 5 years',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                            'Financial amounts consumed for the last 7 days',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                         Expanded(
                           child: charts.LineChart(
                             _seriesLineData,
