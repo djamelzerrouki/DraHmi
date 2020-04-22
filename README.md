@@ -63,8 +63,8 @@ samples, guidance on mobile development, and a full API reference.
 * [x] Helps organize purchases
 ## Requirements
 * Dart 
-* Flutter IDE
-
+* IDE for Flutter (Android Stodio)
+* Smartphone or Emulator  => [Android / Iphone] (for run  project) 
 ## Dependencies  used
 * charts_flutter: v0.6.0 (Charts)
 * cupertino_icons: v0.1.2 (Icons)
