@@ -266,7 +266,7 @@ class _ChartPageState extends State<ChartPage> {
                       children: <Widget>[
 
                         Text(
-                            'Time spent on daily tasks',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                            'Amounts due for any items',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                             SizedBox(height: 10.0,),
                         Expanded(
                           child: charts.PieChart(
