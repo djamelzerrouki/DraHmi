@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'db/database.dart';
 import 'main_drawer.dart';
 import 'model/operation_model.dart';
-import 'model/sum_model.dart';
 
 class ChartPage extends StatefulWidget {
   final Widget child;
@@ -42,37 +41,22 @@ class _ChartPageState extends State<ChartPage> {
       listSum.forEach((f){data0.add(new Task(f['name'].toString() , f['sum']  , Color.fromARGB(255, random.nextInt(255), random.nextInt(255), random.nextInt(255)))) ;});
 
     var data1 = [
-      new Pollution(1980, 'USA', 300),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
+      new Pollution(2019, 'Food', 30),
+      new Pollution(2018, 'Transsport', 40),
+      new Pollution(2020, 'Other', 10),
     ];
     var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
+      new Pollution(2018, 'Food', 100),
+      new Pollution(2020, 'Transsport', 150),
+      new Pollution(2019, 'Other', 80),
     ];
     var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
+      new Pollution(2020, 'Food', 200),
+      new Pollution(2019, 'Transsport', 300),
+      new Pollution(2018, 'Other', 180),
     ];
 
-    var piedata2 = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
-    ];
-    List<Task> piedata=List<Task>();
-    piedata.addAll({new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
-    new Task('jimmi', 10.3, Color(0xffdcf712))});
+
     var linesalesdata = [
       new Sales(0, 45),
       new Sales(1, 56),
