@@ -18,7 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 # DraHmi
 ![](https://github.com/djamelzerrouki/DraHmi/blob/master/assets/captur/logo_drahmi.PNG)
 
-![](https://img.shields.io/badge/Datr-100-green) ![](https://img.shields.io/badge/flutter-100-brightgreen)
+![](https://img.shields.io/badge/Datr-100-green) ![](https://img.shields.io/badge/flutter-100-brightgreen) ![](https://img.shields.io/badge/sdk-flutter%20-yellowgreen) ![](https://img.shields.io/badge/cupertino__icons-%5E0.1.2-brightgreen) ![](https://img.shields.io/badge/sqflite-%5E1.1.5-brightgreen) ![](https://img.shields.io/badge/path__provider-%5E0.5.0%2B1-brightgreen) ![](https://img.shields.io/badge/charts__flutter-%5E0.6.0-brightgreen) ![](https://img.shields.io/badge/shared__preferences-%5E0.5.6%2B3-brightgreen) ![](https://img.shields.io/badge/flutter__sparkline-%5E0.1.0-brightgreen)
 
 
 **Table of Contents**
@@ -64,4 +64,3 @@ samples, guidance on mobile development, and a full API reference.
       
   </table>
   </div>
-
